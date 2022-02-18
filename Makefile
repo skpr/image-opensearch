@@ -5,10 +5,12 @@ VERSION_TAG=v2-latest
 ARCH=amd64
 
 build:
-	docker build -t ${REGISTRY}:dev-${VERSION_TAG}-${ARCH} dev
+	$(eval IMAGE=${REGISTRY}:dev-${VERSION_TAG})
+	docker build -t ${IMAGE} dev
 
 push:
-	docker push ${REGISTRY}:dev-${VERSION_TAG}-${ARCH}
+	$(eval IMAGE=${REGISTRY}:dev-${VERSION_TAG})
+	docker push ${IMAGE}-${ARCH}
 
 manifest:
 	$(eval IMAGE=${REGISTRY}:dev-${VERSION_TAG})
