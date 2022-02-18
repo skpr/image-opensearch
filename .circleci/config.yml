@@ -74,7 +74,7 @@ jobs:
                   echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                   SHA1_VERSION="v2-$(git rev-parse --short HEAD)"
                   make push ARCH=<< parameters.executor >> VERSION_TAG=v2-latest
-                  make push ARCH=<< parameters.executor >>VERSION_TAG=${SHA1_VERSION}
+                  make push ARCH=<< parameters.executor >> VERSION_TAG=${SHA1_VERSION}
   manifest:
     docker:
       - image: cimg/base:2022.02
