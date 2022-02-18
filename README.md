@@ -1,0 +1,1 @@
+# Skpr OpenSearch docker image
