@@ -6,7 +6,7 @@ ARCH=amd64
 
 build:
 	$(eval IMAGE=${REGISTRY}:dev-${VERSION_TAG})
-	docker build -t ${IMAGE} dev
+	docker build -t ${IMAGE}-${ARCH} dev
 
 push:
 	$(eval IMAGE=${REGISTRY}:dev-${VERSION_TAG})
