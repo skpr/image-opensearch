@@ -26,6 +26,7 @@ writer:
         - "indices:admin/close"
         - "indices:admin/mapping/put"
         - "indices:admin/settings/put"
+        - "indices:admin/settings/update"
         - "indices:data/read/search"
         - "indices:data/write/bulk"
         - "indices:data/write/bulk*"
