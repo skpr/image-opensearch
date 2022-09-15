@@ -62,8 +62,10 @@ jobs:
           name: Build, Test and Release
           command: |
             SHA1_VERSION="v2-$(git rev-parse --short HEAD)"
-            make build ARCH=<< parameters.executor >> VERSION_TAG=v2-latest
-            make build ARCH=<< parameters.executor >> VERSION_TAG=${SHA1_VERSION}
+            make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.2.0 VERSION_TAG=v2-latest
+            make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.2.0 VERSION_TAG=v2-1.1.x
+            make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.2.0 VERSION_TAG=v2-1.2.x
+            make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.2.0 VERSION_TAG=v2-1.3.x
       - when:
           condition:
             equal: ["main", << pipeline.git.branch >> ]
@@ -74,7 +76,9 @@ jobs:
                   echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                   SHA1_VERSION="v2-$(git rev-parse --short HEAD)"
                   make push ARCH=<< parameters.executor >> VERSION_TAG=v2-latest
-                  make push ARCH=<< parameters.executor >> VERSION_TAG=${SHA1_VERSION}
+                  make push ARCH=<< parameters.executor >> VERSION_TAG=v2-1.1.x
+                  make push ARCH=<< parameters.executor >> VERSION_TAG=v2-1.2.x
+                  make push ARCH=<< parameters.executor >> VERSION_TAG=v2-1.3.x
   manifest:
     docker:
       - image: cimg/base:2022.02

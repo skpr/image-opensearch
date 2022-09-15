@@ -1,12 +1,13 @@
 #!/usr/bin/make -f
 
+FROM=docker.io/opensearchproject/opensearch:1.1.0
 REGISTRY=skpr/opensearch
 VERSION_TAG=v2-latest
 ARCH=amd64
 
 build:
 	$(eval IMAGE=${REGISTRY}:dev-${VERSION_TAG})
-	docker build -t ${IMAGE}-${ARCH} dev
+	docker build --build-arg=FROM=${FROM} -t ${IMAGE}-${ARCH} dev
 
 push:
 	$(eval IMAGE=${REGISTRY}:dev-${VERSION_TAG})
