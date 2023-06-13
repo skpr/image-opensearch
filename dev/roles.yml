@@ -15,6 +15,7 @@ writer:
   cluster_permissions:
     - "cluster:monitor/*"
     - "indices:data/write/bulk"
+    - "indices:data/read/msearch"
   index_permissions:
     - index_patterns:
         - "local_*"
@@ -36,6 +37,8 @@ writer:
         - "indices:data/write/update"
 
 reader:
+  cluster_permissions:
+    - "indices:data/read/msearch"
   index_permissions:
     - index_patterns:
         - "local_*"
