@@ -120,7 +120,7 @@ jobs:
             make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:2.3.0 VERSION_TAG=v2-2.3.x
       - when:
           condition:
-            equal: ["main", << pipeline.git.branch >>, releases ]
+            equal: ["main", << pipeline.git.branch >>, "releases" ]
           steps:
             - run:
                 name: "Push image"
