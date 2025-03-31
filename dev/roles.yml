@@ -16,6 +16,8 @@ writer:
     - "cluster:monitor/*"
     - "indices:data/write/bulk"
     - "indices:data/read/msearch"
+    - "indices:data/read/scroll"
+    - "indices:data/read/scroll/clear"
   index_permissions:
     - index_patterns:
         - "local_*"
@@ -30,6 +32,8 @@ writer:
         - "indices:admin/mapping/put"
         - "indices:admin/settings/put"
         - "indices:admin/settings/update"
+        - "indices:data/read/scroll"
+        - "indices:data/read/scroll/clear"
         - "indices:data/read/search"
         - "indices:data/write/bulk"
         - "indices:data/write/bulk*"
