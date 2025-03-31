@@ -44,12 +44,8 @@ writer:
 reader:
   cluster_permissions:
     - "indices:data/read/msearch"
-    - "indices:data/read/scroll"
-    - "indices:data/read/scroll/clear"
   index_permissions:
     - index_patterns:
         - "local_*"
       allowed_actions:
-        - "indices:data/read/scroll"
-        - "indices:data/read/scroll/clear"
         - "indices:data/read/search"
