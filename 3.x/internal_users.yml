@@ -1,0 +1,13 @@
+_meta:
+  type: "internalusers"
+  config_version: 2
+
+writer:
+  hash: "$2y$12$KrsazdihAVcGgIN/Bp5PROzLXs8IYmveKwEzt8wlKrNwpKGm1F.Zm"
+  reserved: true
+  description: "Local Development Writer User"
+
+reader:
+  hash: "$2y$12$tGuGifr7FZ9yWkTT2rIj8.DgkE2bNJAWi5eJM4eS1X0lwKvFU0lzG"
+  reserved: true
+  description: "Local Development Reader User"
