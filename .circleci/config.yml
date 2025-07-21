@@ -18,48 +18,25 @@ workflows:
   build_latest:
     jobs:
       - build:
-          stream: latest
           context: docker-publishing
           matrix:
             parameters:
               executor: *platforms
       - manifest:
-          stream: latest
           context: docker-publishing
           requires: [ build ]
           filters:
             branches:
               only: [ main ]
 
-  build_stable:
+  nightly:
     jobs:
       - build:
-          stream: stable
-          context: docker-publishing
-          matrix:
-            parameters:
-              executor: *platforms
-          filters:
-            branches:
-              only: [ releases ]
-      - manifest:
-          stream: stable
-          context: docker-publishing
-          requires: [ build ]
-          filters:
-            branches:
-              only: [ releases ]
-
-  nightly_latest:
-    jobs:
-      - build:
-          stream: latest
           context: docker-publishing
           matrix:
             parameters:
               executor: *platforms
       - manifest:
-          stream: latest
           context: docker-publishing
           requires: [ build ]
           filters:
@@ -72,39 +49,11 @@ workflows:
           filters:
             branches:
               only: [ main ]
-
-  nightly_stable:
-    jobs:
-      - build:
-          stream: stable
-          context: docker-publishing
-          matrix:
-            parameters:
-              executor: *platforms
-          filters:
-            branches:
-              only: [ releases ]
-      - manifest:
-          stream: stable
-          context: docker-publishing
-          requires: [ build ]
-          filters:
-            branches:
-              only: [ releases ]
-    triggers:
-      - schedule:
-          # Scheduled build for 2am AEST nightly.
-          cron: "0 15 * * *"
-          filters:
-            branches:
-              only: [ releases ]
 
 jobs:
   build:
     parameters:
       executor:
-        type: string
-      stream:
         type: string
     executor: << parameters.executor >>
     steps:
@@ -116,30 +65,26 @@ jobs:
             make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.1.0 VERSION_TAG=v2-1.1.x OS_VERSION=1.x
             make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.2.4 VERSION_TAG=v2-1.2.x OS_VERSION=1.x
             make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.3.20 VERSION_TAG=v2-1.3.x OS_VERSION=1.x
-            make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.3.20 VERSION_TAG=v2-<< parameters.stream >> OS_VERSION=1.x
+            make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:1.3.20 VERSION_TAG=v2-stable OS_VERSION=1.x
             make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:2.19.2 VERSION_TAG=v2-2.x OS_VERSION=2.x
             make build ARCH=<< parameters.executor >> FROM=docker.io/opensearchproject/opensearch:3.0.0 VERSION_TAG=v2-3.x OS_VERSION=3.x
       - when:
           condition:
             or:
               - equal: ["main", << pipeline.git.branch >> ]
-              - equal: ["releases", << pipeline.git.branch >>]
           steps:
             - run:
                 name: "Push image"
                 command: |
                   echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                   SHA1_VERSION="v2-$(git rev-parse --short HEAD)"
-                  make push ARCH=<< parameters.executor >> VERSION_TAG=v2-<< parameters.stream >>
+                  make push ARCH=<< parameters.executor >> VERSION_TAG=v2-stable
                   make push ARCH=<< parameters.executor >> VERSION_TAG=v2-1.1.x
                   make push ARCH=<< parameters.executor >> VERSION_TAG=v2-1.2.x
                   make push ARCH=<< parameters.executor >> VERSION_TAG=v2-1.3.x
                   make push ARCH=<< parameters.executor >> VERSION_TAG=v2-2.x
                   make push ARCH=<< parameters.executor >> VERSION_TAG=v2-3.x
   manifest:
-    parameters:
-      stream:
-        type: string
     docker:
       - image: cimg/base:2022.02
     steps:
@@ -151,7 +96,6 @@ jobs:
             export DOCKER_CLI_EXPERIMENTAL=enabled
             echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
             SHA1_VERSION="v2-$(git rev-parse --short HEAD)"
-            make manifest VERSION_TAG=v2-<< parameters.stream >>
             make manifest VERSION_TAG=v2-1.1.x
             make manifest VERSION_TAG=v2-1.2.x
             make manifest VERSION_TAG=v2-1.3.x
