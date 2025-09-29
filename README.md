@@ -1,5 +1,13 @@
 # Skpr OpenSearch docker image
 
+## Building Images
+
+Build the images locally using the following command:
+
+```bash
+$ make
+```
+
 ## Users, Roles and Permissions
 
 ### Users
