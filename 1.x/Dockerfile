@@ -1,5 +1,4 @@
-ARG FROM=docker.io/opensearchproject/opensearch:1.1.0
-FROM ${FROM}
+FROM from_image
 
 ENV OPENSEARCH_JAVA_OPTS="-Xms512m -Xmx512m"
 
