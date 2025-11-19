@@ -2,6 +2,13 @@ _meta:
   type: "internalusers"
   config_version: 2
 
+admin:
+  hash: "$2y$12$aWg4sn2YDzAcz6WLXjcIrOx26TmlW0a5kBdDLfkiFq7NzMs5HYUiu"
+  reserved: true
+  backend_roles:
+  - "admin"
+  description: "Local Development Admin User"
+
 writer:
   hash: "$2y$12$KrsazdihAVcGgIN/Bp5PROzLXs8IYmveKwEzt8wlKrNwpKGm1F.Zm"
   reserved: true

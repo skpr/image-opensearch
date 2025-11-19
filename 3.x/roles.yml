@@ -44,6 +44,9 @@ writer:
 reader:
   cluster_permissions:
     - "indices:data/read/msearch"
+    - "cluster:admin/opensearch/ml/predict"
+    - "cluster:admin/opensearch/ml/models/get"
+    - "cluster:monitor/opensearch/ml/*"
   index_permissions:
     - index_patterns:
         - "local_*"
