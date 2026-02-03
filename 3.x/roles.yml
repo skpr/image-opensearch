@@ -18,6 +18,8 @@ writer:
     - "indices:data/read/msearch"
     - "indices:data/read/scroll"
     - "indices:data/read/scroll/clear"
+    - "cluster:admin/opensearch/ml/models/get"
+    - "cluster:admin/opensearch/ml/model_groups/get"
   index_permissions:
     - index_patterns:
         - "local_*"
