@@ -24,6 +24,7 @@ writer:
     - index_patterns:
         - "local_*"
       allowed_actions:
+        - "indices:admin/analyze"
         - "indices:admin/create"
         - "indices:admin/get"
         - "indices:admin/delete"
