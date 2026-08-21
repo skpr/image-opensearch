@@ -44,7 +44,7 @@ target "2x" {
   context  = "2.x"
 
   contexts = {
-    from_image = "docker-image://docker.io/opensearchproject/opensearch:2.19.2"
+    from_image = "docker-image://docker.io/opensearchproject/opensearch:2.19.4"
   }
 
   tags = [
@@ -58,7 +58,7 @@ target "3x" {
   context  = "3.x"
 
   contexts = {
-    from_image = "docker-image://docker.io/opensearchproject/opensearch:3.2.0"
+    from_image = "docker-image://docker.io/opensearchproject/opensearch:3.4.0"
   }
 
   tags = [

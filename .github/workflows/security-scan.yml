@@ -18,7 +18,10 @@ jobs:
       fail-fast: false
       matrix:
         image_ref:
-          - ghcr.io/skpr/opensearch:1.x-v2-latest
+          # * Not supported by upstream.
+          # * Projects are migrating to OpenSearch 3.x
+          # * Only used for local development and testing.
+          # - ghcr.io/skpr/opensearch:1.x-v2-latest
           - ghcr.io/skpr/opensearch:2.x-v2-latest
           - ghcr.io/skpr/opensearch:3.x-v2-latest
 
